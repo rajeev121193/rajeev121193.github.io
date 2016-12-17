@@ -4,7 +4,7 @@ var min_speed = -10;
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
-	prob_particle = 0.1;
+	prob_particle = 0.3;
 }
 
 function createParticleAtRandom(prob) {
