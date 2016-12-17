@@ -1,9 +1,10 @@
 var particles = [];
 var prob_particle;
+var min_speed = -10;
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
-	prob_particle = 0.2;
+	prob_particle = 0.1;
 }
 
 function createParticleAtRandom(prob) {
@@ -20,7 +21,7 @@ function createNewParticle(pos, color) {
 		vel.mult(random(0.1, 0.7));
 		particle = new Particle(pos.x, pos.y, vel, true, color);
 	} else {
-		vel = createVector(0, random(-13, -17));
+		vel = createVector(0, random(min_speed, min_speed - 5));
 		particle = new Particle(random (0, width), height, vel, false, color);
 	}
 	

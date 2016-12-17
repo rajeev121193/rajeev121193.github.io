@@ -1,9 +1,9 @@
 function Particle(x, y, v, isBurst, color) {
 	this.pos = createVector(x, y);
 	this.vel = createVector(v.x, v.y);
-	this.acc = createVector(0, 0.2);
+	this.acc = createVector(0, 0.15);
 	this.r = 2;
-	this.pieces = 20;
+	this.pieces = 50;
 	this.burstParticle = isBurst;
 	this.life = 0;
 	this.lifeSpan = random(50, 100);
