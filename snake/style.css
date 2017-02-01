@@ -1,0 +1,15 @@
+body {
+	padding: 0;
+	margin: 10;
+	background: #8877aa
+}
+
+@font-face {
+    font-family: "Score Font";
+    src: url("http://ff.static.1001fonts.net/h/i/high-speed.regular.ttf");
+}
+
+#score {
+	font-family: "Score Font";
+	color: white;
+}
