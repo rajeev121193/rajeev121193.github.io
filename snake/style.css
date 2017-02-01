@@ -13,4 +13,5 @@ body {
 #score {
 	font-family: "Score Font";
 	color: white;
+	padding: 2px;
 }
