@@ -6,7 +6,8 @@ body {
 
 @font-face {
     font-family: "Score Font";
-    src: url("http://ff.static.1001fonts.net/h/i/high-speed.regular.ttf");
+    /*src: url("https://ff.static.1001fonts.net/h/i/high-speed.regular.ttf");*/
+    src: url(fonts/high-speed.regular.ttf);
 }
 
 #score {
