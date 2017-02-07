@@ -3,11 +3,25 @@ var food;
 var specialFood;
 var foodCount;
 var specialFoodStartFrame;
+var small_bite_sound;
+var big_bite_sound;
+var game_over_sound;
 
 function setup () {
+	loadSounds();
 	createCanvas(w, h);
 	frameRate(defaultFrameRate);
 
+	startGame();
+}
+
+function loadSounds () {
+	small_bite_sound = loadSound('sounds/small_bite.wav');
+	big_bite_sound = loadSound('sounds/big_bite.wav');
+	game_over_sound = loadSound('sounds/game_over.wav');
+};
+
+function startGame () {
 	snake = new Snake(width / 2, height / 2);
 
 	//Food related
@@ -24,6 +38,8 @@ function setup () {
 		size: foodSize,
 		eaten: true
 	};
+
+	document.getElementById("score").innerHTML = "Score\t0";
 }
 
 function createFoodAtRandom () {
@@ -75,38 +91,24 @@ function showSpecialFood () {
 }
 
 function draw () {
+	//If snake is dead
+	if (snake.dead) {
+		game_over_sound.play();
+
+		startGame();
+	}
+
 	//Background
 	background(50);
 
 	//Align the grid properly
 	translate(snakeSize / 2, snakeSize / 2);
 
-	//If snake is dead
-	if (snake.dead) {
-		snake = new Snake(width / 2, height / 2);
-
-		//Food related
-		foodCount = 0;
-		food = {
-			eaten: true,
-			pos: createVector,
-			clr: null,
-			size: foodSize
-		};
-		specialFood = {
-			pos: createVector,
-			clr: null,
-			size: foodSize,
-			eaten: true
-		};
-
-		document.getElementById("score").innerHTML = "Score\t0";
-	}
-
 	//Check if snake eats the food
 	if (snake.pos.x === food.pos.x && snake.pos.y === food.pos.y) {
 		food.eaten = true;
 		snake.eatFood();
+		small_bite_sound.play();
 	}
 
 	//Create new food if food gets eaten
@@ -134,6 +136,7 @@ function draw () {
 			specialFood.eaten = true;
 			specialFood.show = false;
 			snake.eatFood(true);
+			big_bite_sound.play();
 		}
 	}
 

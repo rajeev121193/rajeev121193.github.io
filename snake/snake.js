@@ -11,23 +11,37 @@ function Snake(x, y, clr) {
 	//Tail related
 	this.tail = [];
 	this.lastPos = this.pos;
+	this.tailWithFood = 0;
+	this.alreadyMoved = false;
 
 	this.update = function () {
 		if (!(frameCount % (defaultFrameRate / (this.velx + this.vely)))) {
 			this.updateTail();
 			this.updateHead();
 			this.checkIfDead();
+			this.alreadyMoved = false;
 		}
 	};
 
 	this.updateTail = function () {
 		//Update Tail positions
 		for (var i = this.tail.length - 1; i >= 0; i--) {
+			var tailPart = this.tail[i];
 			if (i === 0) {
-				this.tail[i].pos = this.pos.copy();
+				tailPart.pos = this.pos.copy();
 			} else {
-				this.tail[i].pos = this.tail[i - 1].pos.copy();
+				tailPart.pos = this.tail[i - 1].pos.copy();
 			}
+
+			if (this.tailWithFood === i) {
+				tailPart.clr = tailColorWithFood;
+			} else {
+				tailPart.clr = snakeColor;
+			}
+		}
+
+		if (this.tailWithFood < this.tail.length) {
+			this.tailWithFood++;
 		}
 	};
 
@@ -60,42 +74,48 @@ function Snake(x, y, clr) {
 	};
 
 	this.moveRight = function () {
-		if (!this.velx) {
+		if (!this.velx && !this.alreadyMoved) {
 			this.velx = defaultVel;
 			this.vely = 0;
 			this.flip = 1;
+			this.alreadyMoved = true;
 		}
 	};
 
 	this.moveLeft = function () {
-		if (!this.velx) {
+		if (!this.velx && !this.alreadyMoved) {
 			this.velx = defaultVel;
 			this.vely = 0;
 			this.flip = -1;
+			this.alreadyMoved = true;
 		}
 	};
 
 	this.moveUp = function () {
-		if (!this.vely) {
+		if (!this.vely && !this.alreadyMoved) {
 			this.velx = 0;
 			this.vely = defaultVel;
 			this.flip = -1;
+			this.alreadyMoved = true;
 		}
 	};
 
 	this.moveDown = function () {
-		if (!this.vely) {
+		if (!this.vely && !this.alreadyMoved) {
 			this.velx = 0;
 			this.vely = defaultVel;
 			this.flip = 1;
+			this.alreadyMoved = true;
 		}
 	};
 
 	this.eatFood = function (isSpecialFood) {
 		this.tail.push({
-			pos: this.lastPos.copy()
+			pos: this.lastPos.copy(),
+			clr: this.clr
 		});
 
+		this.tailWithFood = 0;
 		this.score += isSpecialFood ? 5 : 1;
 		document.getElementById("score").innerHTML = "Score\t" + this.score;
 
@@ -104,15 +124,24 @@ function Snake(x, y, clr) {
 	this.show = function () {
 		push();
 		noStroke();
-		fill(this.clr);
 
 		//Show Head
-		ellipse(this.pos.x, this.pos.y, this.r, this.r);
+		fill(tailHeadColor.R, tailHeadColor.G, tailHeadColor.B);
+		ellipse(this.pos.x, this.pos.y, this.r * 1.2, this.r * 1.2);
 
 		//Show Tail
-		for (var i = this.tail.length - 1; i >= 0; i--) {
-			ellipse(this.tail[i].pos.x, this.tail[i].pos.y, this.r, this.r);
+		for (var i = 0; i < this.tail.length; i++) {
+			var tailPart = this.tail[i];
+			var size = this.r;
+			if (i === this.tail.length - 1) {
+				fill(tailEndColor.R, tailEndColor.G, tailEndColor.B);
+				size /= 1.2;
+			} else {
+				fill(tailPart.clr.R, tailPart.clr.G, tailPart.clr.B);
+			}
+			ellipse(tailPart.pos.x, tailPart.pos.y, size, size);
 		}
+
 		pop();
 	};
 }
