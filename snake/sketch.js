@@ -6,6 +6,7 @@ var specialFoodStartFrame;
 var small_bite_sound;
 var big_bite_sound;
 var game_over_sound;
+var clock_sound;
 
 function setup () {
 	loadSounds();
@@ -19,6 +20,7 @@ function loadSounds () {
 	small_bite_sound = loadSound('sounds/small_bite.wav');
 	big_bite_sound = loadSound('sounds/big_bite.wav');
 	game_over_sound = loadSound('sounds/game_over.wav');
+	clock_sound = loadSound('sounds/heart_beat.wav');
 };
 
 function startGame () {
@@ -47,7 +49,9 @@ function createFoodAtRandom () {
 	food.pos = createVector(floor(random(width / food.size)) * food.size, floor(random(height / food.size)) * food.size);
 	food.eaten = false;
 
-	foodCount++;
+	if (specialFood.eaten) {
+		foodCount++;
+	}
 	specialFood.show = true;
 }
 
@@ -56,6 +60,7 @@ function createSpecialFoodAtRandom () {
 	specialFood.pos = createVector(floor(random(width / specialFood.size)) * specialFood.size, floor(random(height / specialFood.size)) * specialFood.size);
 	specialFood.eaten = false;
 	specialFood.show = false;
+	clock_sound.play();
 }
 
 function keyPressed() {
@@ -129,6 +134,9 @@ function draw () {
 		if (frameCount - specialFoodStartFrame === defaultFrameRate * specialFoodLifeSpan) {
 			specialFood.eaten = true;
 			specialFood.show = false;
+			if (clock_sound.isPlaying()) {
+				clock_sound.stop();
+			}
 		}
 
 		//Check if snake eats the food
@@ -136,6 +144,9 @@ function draw () {
 			specialFood.eaten = true;
 			specialFood.show = false;
 			snake.eatFood(true);
+			if (clock_sound.isPlaying()) {
+				clock_sound.stop();
+			}
 			big_bite_sound.play();
 		}
 	}
