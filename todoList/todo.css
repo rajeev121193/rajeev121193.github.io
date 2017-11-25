@@ -1,0 +1,81 @@
+body{
+	background-color: #232B2B;
+	margin: 50px;
+	font-family: sans-serif;
+}
+
+input{
+	width: 98%;
+	border-radius: 25px;
+	border-width: 0;
+	font-size: 30px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 10px;
+	outline: 0;
+	margin-bottom: 10px;
+}
+
+h1{
+	color: #DC3D24;
+	margin: 0;
+	font-style: italic;
+}
+
+h1#list{
+	padding-top: 50px;
+}
+
+hr{
+	border-color: green;
+	border-width: 3px;
+}
+
+div.listItem{
+	border-radius: 25px;
+	border-width: 0;
+	font-size: 30px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 10px;
+	outline: 0;
+	background-color: #ddddff;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+
+div#listOfItems{
+	width: 100%;
+	overflow: hidden
+}
+
+button{
+	border-width: 0;
+    border-radius: 25px;
+    margin-top: 5px;
+	margin-left: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-weight: bold;
+	outline: 0;
+	font-size: 30px;
+}
+
+button.listItem{
+	float: right;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-top: 0px;
+}
+
+button:hover{
+	background-color: grey;
+	color: #222222;
+}
+
+button:active{
+	background-color: white;
+	color: black;
+}

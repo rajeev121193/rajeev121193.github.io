@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>To-Do List</title>
+    <link rel="stylesheet" type="text/css" href="todo.css">
+</head>
+<body>
+    <h1 id="title">To-Do</h1>
+    <hr>
+    <div id="insertSection">
+        <input id="todoBox"></input>
+        <button id="todoItemInsert" class="insertSection">Add</button>
+        <button id="todoItemClear" class="insertSection">Clear</button>
+    </div>
+    
+    <h1 id="list">List</h1>
+    <hr>
+
+    <!-- Will be populated using dojo -->
+    <div id="listOfItems"></div>
+
+    <!-- dojoConfig -->
+    <script>
+    var dojoConfig = {
+        async: true,
+        baseUrl: '.',
+        packages: [
+            'dojo',
+            'dijit',
+            'dojox'
+        ]
+    };
+    </script>
+
+    <!-- load Dojo -->
+    <script src="dojo/dojo.js"></script>
+
+    <!-- load our code -->
+    <script src="todo.js"></script>
+</body>
+</html>
