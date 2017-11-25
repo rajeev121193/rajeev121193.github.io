@@ -1,6 +1,6 @@
 var particles = [];
 var prob_particle;
-var min_speed = -10;
+var min_speed = -15;
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
