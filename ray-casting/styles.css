@@ -1,0 +1,13 @@
+label {
+    font-family: Helvetica;
+}
+
+button {
+    font-family: Helvetica;
+    width: 150px;
+}
+
+input[type="range"] {
+    width: 150px;
+    color: red;
+}
