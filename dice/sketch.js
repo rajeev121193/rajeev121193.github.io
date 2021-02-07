@@ -3,16 +3,16 @@ var dice2 = 0;
 var total = 0;
 var num_dice = 2;
 var dice_faces = [0, 1, 2, 3];
-var button;
-var w = 800;
-var h = 600;
+var inProgress = false;
+var spinner;
+
+function preload() {
+	spinner = loadImage('assets/spinner.svg');
+}
 
 function setup() {
-	createCanvas(w, h);
-
-	captureButton = createButton('Roll Dice');
-    captureButton.position(w/2, h*3/4);
-    captureButton.mousePressed(rollDice);
+	createCanvas(windowWidth, windowHeight);
+	imageMode(CENTER);
 }
 
 function rollDice() {
@@ -24,12 +24,12 @@ function rollDice() {
 function showTotal() {
 	textSize(100);
 	fill(255, 0, 255);
-	text(dice1, w/3, h/3);
-	text(dice2, w*2/3, h/3);
+	text(dice1, width/3, height/3);
+	text(dice2, width*2/3, height/3);
 
 	textSize(150);
 	fill(0, 255, 0);
-	text(total, w/2, h*2/3);
+	text(total, width/2, height*2/3);
 }
 
 function getTotal(dice1, dice2) {
@@ -47,7 +47,28 @@ function findRandomDiceValue() {
 
 function draw() {
 	colorMode(RGB, 255);
-	background(0);	
+	background(50, 50, 50);	
 
-	showTotal();
+	if (inProgress) {
+		image(spinner, width/2, height/2);
+	}	else {
+		showTotal();
+	}
 }
+
+/* prevents the mobile browser from processing some default
+ * touch events, like swiping left for "back" or scrolling
+ * the page.
+ */
+document.ontouchmove = function(event) {
+    event.preventDefault();
+};
+
+function touchStarted() {
+	inProgress = true;
+}
+
+function touchEnded() {
+	rollDice();
+	inProgress = false;
+  }
