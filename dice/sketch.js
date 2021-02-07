@@ -5,6 +5,7 @@ var num_dice = 2;
 var dice_faces = [0, 1, 2, 3];
 var inProgress = false;
 var spinner;
+var lastTotal = 0;
 
 function preload() {
 	spinner = loadImage('assets/spinner.svg');
@@ -18,27 +19,29 @@ function setup() {
 function rollDice() {
 	dice1 = findRandomDiceValue();
 	dice2 = findRandomDiceValue();
-	total = getTotal(dice1, dice2);
+	calculateNewTotal(dice1, dice2);
 }
 
 function showTotal() {
-	textSize(100);
+	textSize(width/12);
 	fill(255, 0, 255);
 	text(dice1, width/3, height/3);
 	text(dice2, width*2/3, height/3);
 
-	textSize(150);
+	textSize(width/10);
 	fill(0, 255, 0);
 	text(total, width/2, height*2/3);
 }
 
-function getTotal(dice1, dice2) {
-	var total = dice1 + dice2;
-	if (total === 0) {
-		return 12;
-	} else {
-		return total;
-	}
+function showLastTotal() {
+	textSize(width/20);
+	fill(0, 255, 255);
+	text(lastTotal, width/10, height/10);
+}
+
+function calculateNewTotal(dice1, dice2) {
+	lastTotal = total;
+	total = dice1 + dice2 === 0 ? 12 : dice1 + dice2;
 }
 
 function findRandomDiceValue() {
@@ -52,6 +55,7 @@ function draw() {
 	if (inProgress) {
 		image(spinner, width/2, height/2);
 	}	else {
+		showLastTotal();
 		showTotal();
 	}
 }
@@ -71,4 +75,4 @@ function touchStarted() {
 function touchEnded() {
 	rollDice();
 	inProgress = false;
-  }
+}
