@@ -23,18 +23,18 @@ function rollDice() {
 }
 
 function showTotal() {
-	textSize(width/12);
+	textSize(width/6);
 	fill(255, 0, 255);
 	text(dice1, width/3, height/3);
 	text(dice2, width*2/3, height/3);
 
-	textSize(width/10);
+	textSize(width/5);
 	fill(0, 255, 0);
 	text(total, width/2, height*2/3);
 }
 
 function showLastTotal() {
-	textSize(width/20);
+	textSize(width/10);
 	fill(0, 255, 255);
 	text(lastTotal, width/10, height/10);
 }
